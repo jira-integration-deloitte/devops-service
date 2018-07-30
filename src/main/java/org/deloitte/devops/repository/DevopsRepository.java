@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 
@@ -23,5 +24,9 @@ public interface DevopsRepository {
 		return headers;
 	}
 
+	public <T> T get(String url, ParameterizedTypeReference<T> type, Map<String, Object> uriVariables,
+			String authHeader);
+
+	public <T> T post(String url, ParameterizedTypeReference<T> type, Object requestBody, String authHeader);
 
 }

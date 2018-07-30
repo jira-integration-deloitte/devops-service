@@ -71,6 +71,12 @@ public class Fields implements Serializable {
 	@JsonProperty("assignee")
 	private Assignee assignee;
 
+	@JsonProperty("sprint")
+	private Sprint sprint;
+
+	@JsonProperty("closedSprints")
+	private List<Sprint> closedSprints;
+
 	public Epic getEpic() {
 		return epic;
 	}
@@ -231,4 +237,19 @@ public class Fields implements Serializable {
 		this.assignee = assignee;
 	}
 
+	public Sprint getSprint() {
+		return sprint;
+	}
+
+	public void setSprint(Sprint sprint) {
+		this.sprint = sprint;
+	}
+
+	public List<Sprint> getClosedSprints() {
+		return closedSprints;
+	}
+
+	public void setClosedSprints(List<Sprint> closedSprints) {
+		this.closedSprints = closedSprints;
+	}
 }

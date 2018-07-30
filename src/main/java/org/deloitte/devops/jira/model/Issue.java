@@ -5,6 +5,7 @@ import org.springframework.util.CollectionUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Issue {
+	private int storyPoint;
 	@JsonProperty("expand")
 	private String expand;
 	@JsonProperty("id")
@@ -66,20 +67,34 @@ public class Issue {
 		this.totalStoryPoint = totalStoryPoint;
 	}
 
+	public int getStoryPoint() {
+		return storyPoint;
+	}
+
+	public void setStoryPoint(int storyPoint) {
+		this.storyPoint = storyPoint;
+	}
+
 	public boolean isStory() {
-		if (CollectionUtils.isEmpty(getFields().getIssueLinks())) {
-			return false;
+		boolean isStory = false;
+		if (getFields().getIssueType() != null && getFields().getIssueType().getName() != null) {
+			isStory = "Story".equalsIgnoreCase(getFields().getIssueType().getName());
 		}
 		IssueType type = null;
-		IssueLink link = getFields().getIssueLinks().get(0);
-		if (link.getOutwardIssue() == null || link.getOutwardIssue().getFields() == null
-				|| link.getOutwardIssue().getFields().getIssueType() == null) {
-			type = getFields().getIssueType();
-		} else {
-			type = link.getOutwardIssue().getFields().getIssueType();
+		if (!isStory) {
+			if (CollectionUtils.isEmpty(getFields().getIssueLinks())) {
+				return false;
+			}
+			IssueLink link = getFields().getIssueLinks().get(0);
+			if (link.getOutwardIssue() == null || link.getOutwardIssue().getFields() == null
+					|| link.getOutwardIssue().getFields().getIssueType() == null) {
+				type = getFields().getIssueType();
+			} else {
+				type = link.getOutwardIssue().getFields().getIssueType();
+			}
+			isStory = type.getName() != null && "Story".equalsIgnoreCase(type.getName());
 		}
-
-		return type.getName() != null && "Story".equalsIgnoreCase(type.getName());
+		return isStory;
 	}
 
 }

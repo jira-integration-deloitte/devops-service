@@ -16,4 +16,6 @@ public interface ApplicationEnvironment {
 	public String getJenkinsUserName();
 
 	public String getJenkinsPassword();
+
+	public String getCustomFields();
 }

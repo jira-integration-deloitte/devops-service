@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 public class AllIssuesDisplay implements Serializable {
 
@@ -40,6 +41,16 @@ public class AllIssuesDisplay implements Serializable {
 					id.setDescription(type.getName());
 				}
 
+				if (i.getFields().getProject() != null) {
+					id.setProjectName(i.getFields().getProject().getName());
+				}
+				if (i.getFields().getSprint() != null) {
+					id.setSprintName(i.getFields().getSprint().getName());
+				} else if (!CollectionUtils.isEmpty(i.getFields().getClosedSprints())) {
+					Sprint closedSprint = i.getFields().getClosedSprints().get(0);
+					id.setSprintName(closedSprint.getName());
+				}
+
 				id.setName(type.getName());
 
 			}
@@ -55,6 +66,10 @@ public class AllIssuesDisplay implements Serializable {
 			id.setStatus(i.getFields().getStatus().getName());
 			id.setStatusColor(i.getFields().getStatus().getStatusCategory().getColorName());
 
+			id.setStoryPoint(i.getStoryPoint());
+			if (StringUtils.isEmpty(id.getDescription())) {
+				continue;
+			}
 			this.issues.add(id);
 		}
 	}
@@ -77,6 +92,9 @@ public class AllIssuesDisplay implements Serializable {
 		private String urlSm;
 		private String urlMd;
 		private String urlLg;
+		private int storyPoint;
+		private String sprintName;
+		private String projectName;
 
 		public String getUrlSm() {
 			return urlSm;
@@ -150,6 +168,29 @@ public class AllIssuesDisplay implements Serializable {
 			this.description = description;
 		}
 
+		public int getStoryPoint() {
+			return storyPoint;
+		}
+
+		public void setStoryPoint(int storyPoint) {
+			this.storyPoint = storyPoint;
+		}
+
+		public String getSprintName() {
+			return sprintName;
+		}
+
+		public void setSprintName(String sprintName) {
+			this.sprintName = sprintName;
+		}
+
+		public String getProjectName() {
+			return projectName;
+		}
+
+		public void setProjectName(String projectName) {
+			this.projectName = projectName;
+		}
 	}
 
 }

@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class DevopsController {
-//	private static final Logger LOG = LoggerFactory.getLogger(DevopsController.class);
 
 	@Autowired
 	private DevopsServiceBO devopsServiceBO;
 
-	@GetMapping(value = "/alldashboards", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public AllBoards getAllDashboards() {
-		return devopsServiceBO.getAllBoards();
+	@GetMapping(value = "/allboards", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public AllBoards getAllBoards() {
+		AllBoards allBoards = devopsServiceBO.getAllBoards();
+		return allBoards;
 	}
 
 	@GetMapping(value = "/board/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -43,5 +43,9 @@ public class DevopsController {
 		return devopsServiceBO.getAllIssuesForSprint(boardId, sprintId);
 	}
 
+	@GetMapping(value = "/fields/{fieldName}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public String getCustomField(@PathVariable("fieldName") String fieldName) {
+		return devopsServiceBO.getCustomField(fieldName);
+	}
 
 }

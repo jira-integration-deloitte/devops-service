@@ -6,6 +6,7 @@ import java.util.Map;
 import org.deloitte.devops.config.ApplicationEnvironment;
 import org.deloitte.devops.config.EnvironmentConfig;
 import org.deloitte.devops.repository.DevopsRepository;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +34,23 @@ public class JenkinsJiraHelper {
 	public <T> T exchangeWithJira(HttpMethod method, Map<String, Object> uriVariables, Object requestBody,
 			Class<T> type,
 			String... urlComponents) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(env.getJiraURL());
+		for (String s : urlComponents) {
+			sb.append(s);
+		}
+		String cred = env.getJiraUserName() + ":" + env.getJiraPassword();
+		String authHeader = Base64.getEncoder().encodeToString(cred.getBytes());
+
+		if (HttpMethod.GET.equals(method)) {
+			return repository.get(sb.toString(), type, uriVariables, authHeader);
+		} else if (HttpMethod.POST.equals(method)) {
+			return repository.post(sb.toString(), type, requestBody, authHeader);
+		}
+		return null;
+	}
+	public <T> T exchangeWithJira(HttpMethod method, Map<String, Object> uriVariables, Object requestBody,
+			ParameterizedTypeReference<T> type, String... urlComponents) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(env.getJiraURL());
 		for (String s : urlComponents) {

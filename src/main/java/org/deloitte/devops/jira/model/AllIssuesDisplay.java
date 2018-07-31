@@ -14,11 +14,11 @@ public class AllIssuesDisplay implements Serializable {
 	private List<IssueDisplay> issues;
 
 	public AllIssuesDisplay() {
-		this(new ArrayList<>());
+		this.issues = new ArrayList<>();
 	}
 
 	public AllIssuesDisplay(List<Issue> issues) {
-		this.issues = new ArrayList<>();
+		this();
 		for (Issue i : issues) {
 			IssueDisplay id = new IssueDisplay();
 
@@ -94,7 +94,7 @@ public class AllIssuesDisplay implements Serializable {
 		}
 	}
 
-	public static class IssueDisplay {
+	public static class IssueDisplay implements Comparable<IssueDisplay> {
 		private String id;
 		private String name;
 		private String description;
@@ -202,6 +202,21 @@ public class AllIssuesDisplay implements Serializable {
 
 		public void setProjectName(String projectName) {
 			this.projectName = projectName;
+		}
+
+		@Override
+		public int compareTo(IssueDisplay o) {
+			if (o == null) {
+				return -1;
+			}
+			if (this.projectName == null) {
+				if (o.projectName == null) {
+					return 0;
+				} else {
+					return 1;
+				}
+			}
+			return this.projectName.compareTo(o.projectName);
 		}
 	}
 

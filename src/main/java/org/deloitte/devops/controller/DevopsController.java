@@ -1,6 +1,7 @@
 package org.deloitte.devops.controller;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.deloitte.devops.bo.DevopsServiceBO;
@@ -30,19 +31,20 @@ public class DevopsController {
 	@GetMapping(value = "/allboards", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public AllBoards getAllBoards() {
 		AllBoards allBoards = devopsServiceBO.getAllBoards();
+		Collections.sort(allBoards.getBoards());
 		return allBoards;
 	}
 
 	@GetMapping(value = "/board/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public AllIssuesResponse getAllIssues(@PathVariable("id") String boardId) {
-
 		return devopsServiceBO.getAllIssuesForBoard(boardId);
 	}
 
 	@GetMapping(value = "/board/{boardId}/sprints", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public AllSprints getSprintsForBoard(@PathVariable("boardId") String boardId) {
-
-		return devopsServiceBO.getSprintsForBoard(boardId);
+		AllSprints allSprints = devopsServiceBO.getSprintsForBoard(boardId);
+		Collections.sort(allSprints.getSprints());
+		return allSprints;
 	}
 
 	@GetMapping(value = "/board/{boardId}/sprint/{sprintId}/stories", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -60,11 +62,11 @@ public class DevopsController {
 
 		for (String theSprintId : sprintIds) {
 			AllIssuesDisplay aid = devopsServiceBO.getAllIssuesForSprint(boardId, theSprintId);
-			if (aid != null && CollectionUtils.isEmpty(aid.getIssues())) {
+			if (aid != null && !CollectionUtils.isEmpty(aid.getIssues())) {
 				allIssues.addIssues(aid.getIssues());
 			}
 		}
-
+		Collections.sort(allIssues.getIssues());
 		LOG.info("gathered total of [{}] issues", allIssues.getIssues().size());
 
 		return allIssues;

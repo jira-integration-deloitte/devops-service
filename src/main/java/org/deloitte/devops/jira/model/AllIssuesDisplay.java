@@ -13,6 +13,10 @@ public class AllIssuesDisplay implements Serializable {
 
 	private List<IssueDisplay> issues;
 
+	public AllIssuesDisplay() {
+		this(new ArrayList<>());
+	}
+
 	public AllIssuesDisplay(List<Issue> issues) {
 		this.issues = new ArrayList<>();
 		for (Issue i : issues) {
@@ -80,6 +84,14 @@ public class AllIssuesDisplay implements Serializable {
 
 	public void setIssues(List<IssueDisplay> issues) {
 		this.issues = issues;
+	}
+
+	public void addIssues(List<IssueDisplay> issues) {
+		if (CollectionUtils.isEmpty(this.issues)) {
+			setIssues(issues);
+		} else {
+			this.issues.addAll(issues);
+		}
 	}
 
 	public static class IssueDisplay {

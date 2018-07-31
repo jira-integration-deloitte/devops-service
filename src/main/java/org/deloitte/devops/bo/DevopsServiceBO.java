@@ -1,5 +1,6 @@
 package org.deloitte.devops.bo;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.deloitte.devops.jira.model.AllBoards;
 import org.deloitte.devops.jira.model.AllIssuesDisplay;
 import org.deloitte.devops.jira.model.AllIssuesResponse;
 import org.deloitte.devops.jira.model.AllSprints;
+import org.deloitte.devops.jira.model.Board;
 import org.deloitte.devops.jira.model.CustomField;
 import org.deloitte.devops.jira.model.Issue;
 import org.deloitte.devops.repository.DevopsRepository;
@@ -43,7 +45,15 @@ public class DevopsServiceBO {
 	}
 
 	public AllBoards getAllBoards() {
-		return helper.exchangeWithJira(HttpMethod.GET, null, null, AllBoards.class, JiraEndPoint.ALL_BOARDS);
+		AllBoards allBoards = helper.exchangeWithJira(HttpMethod.GET, null, null, AllBoards.class,
+				JiraEndPoint.ALL_BOARDS);
+		Collections.sort(allBoards.getBoards());
+		Board dummyBoard = new Board();
+		dummyBoard.setId("x");
+		dummyBoard.setName("--Select Board--");
+		allBoards.getBoards().add(0, dummyBoard);
+
+		return allBoards;
 	}
 
 	public AllIssuesResponse getAllIssuesForBoard(String boardId) {
@@ -52,8 +62,9 @@ public class DevopsServiceBO {
 	}
 
 	public AllSprints getSprintsForBoard(String boardId) {
-		String url = JiraEndPoint.ALL_BOARDS + boardId + "/sprint";
-		return helper.exchangeWithJira(HttpMethod.GET, null, null, AllSprints.class, url);
+		AllSprints allSprints = helper.exchangeWithJira(HttpMethod.GET, null, null, AllSprints.class, JiraEndPoint.ALL_BOARDS, boardId, "/sprint");
+		Collections.sort(allSprints.getSprints());
+		return allSprints;
 	}
 
 	public AllIssuesDisplay getAllIssuesForSprint(String boardId, String sprintId) {

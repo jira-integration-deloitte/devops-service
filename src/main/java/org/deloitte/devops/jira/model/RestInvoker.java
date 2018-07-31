@@ -3,15 +3,12 @@ package org.deloitte.devops.jira.model;
 import java.io.File;
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RestInvoker {
-	private static final Logger LOG = LoggerFactory.getLogger(RestInvoker.class);
 	public static void main(String[] args) throws IOException {
 		ObjectMapper om = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 				.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)

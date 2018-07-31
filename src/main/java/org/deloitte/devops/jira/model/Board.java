@@ -2,7 +2,7 @@ package org.deloitte.devops.jira.model;
 
 import java.io.Serializable;
 
-public class Board implements Serializable {
+public class Board implements Serializable, Comparable<Board> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -50,6 +50,22 @@ public class Board implements Serializable {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	@Override
+	public int compareTo(Board o) {
+		if (o == null) {
+			return 1;
+		}
+		if (location == null || location.getName() == null) {
+			if (location == o.location || location.getName() == o.location.getName()) {
+				return 0;
+			} else {
+				return -1;
+			}
+		}
+
+		return location.getName().compareTo(o.location.getName());
 	}
 
 }

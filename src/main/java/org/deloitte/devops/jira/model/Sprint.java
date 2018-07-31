@@ -2,7 +2,7 @@ package org.deloitte.devops.jira.model;
 
 import java.io.Serializable;
 
-public class Sprint implements Serializable {
+public class Sprint implements Serializable, Comparable<Sprint> {
 	private static final long serialVersionUID = 9109342170873490694L;
 
 	private String id;
@@ -85,6 +85,18 @@ public class Sprint implements Serializable {
 
 	public void setGoal(String goal) {
 		this.goal = goal;
+	}
+
+	@Override
+	public int compareTo(Sprint o) {
+		if (name == null) {
+			if (name == o.name) {
+				return 0;
+			} else {
+				return -1;
+			}
+		}
+		return name.compareTo(o.name);
 	}
 
 	@Override

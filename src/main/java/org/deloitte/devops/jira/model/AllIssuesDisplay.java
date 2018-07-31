@@ -14,11 +14,11 @@ public class AllIssuesDisplay implements Serializable {
 	private List<IssueDisplay> issues;
 
 	public AllIssuesDisplay() {
-		this(new ArrayList<>());
+		this.issues = new ArrayList<>();
 	}
 
 	public AllIssuesDisplay(List<Issue> issues) {
-		this.issues = new ArrayList<>();
+		this();
 		for (Issue i : issues) {
 			IssueDisplay id = new IssueDisplay();
 

@@ -85,14 +85,20 @@ public class Issue {
 			if (CollectionUtils.isEmpty(getFields().getIssueLinks())) {
 				return false;
 			}
-			IssueLink link = getFields().getIssueLinks().get(0);
-			if (link.getOutwardIssue() == null || link.getOutwardIssue().getFields() == null
-					|| link.getOutwardIssue().getFields().getIssueType() == null) {
-				type = getFields().getIssueType();
-			} else {
-				type = link.getOutwardIssue().getFields().getIssueType();
+			for (IssueLink link : getFields().getIssueLinks()) {
+				if (link.getOutwardIssue() == null || link.getOutwardIssue().getFields() == null
+						|| link.getOutwardIssue().getFields().getIssueType() == null) {
+					type = getFields().getIssueType();
+				} else {
+					type = link.getOutwardIssue().getFields().getIssueType();
+				}
+				isStory = type.getName() != null && "Story".equalsIgnoreCase(type.getName());
+
+				if (isStory) {
+					break;
+				}
 			}
-			isStory = type.getName() != null && "Story".equalsIgnoreCase(type.getName());
+
 		}
 		return isStory;
 	}

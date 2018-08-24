@@ -71,8 +71,10 @@ public class AllIssuesDisplay implements Serializable {
 			id.setStatusColor(i.getFields().getStatus().getStatusCategory().getColorName());
 
 			id.setStoryPoint(i.getStoryPoint());
+			
 			if (StringUtils.isEmpty(id.getDescription())) {
-				continue;
+				
+				id.setDescription("No Description exists for this story");
 			}
 			this.issues.add(id);
 		}
@@ -215,6 +217,9 @@ public class AllIssuesDisplay implements Serializable {
 				} else {
 					return 1;
 				}
+			}
+			if(o.projectName==null) {
+				return -1;
 			}
 			return this.projectName.compareTo(o.projectName);
 		}

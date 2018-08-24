@@ -58,7 +58,7 @@ public class DevopsServiceBO {
 	}
 
 	public AllIssuesDisplay getAllIssuesForSprint(String boardId, String sprintId) {
-		String url = JiraEndPoint.ALL_BOARDS + boardId + "/sprint/" + sprintId + "/issue";
+		String url = JiraEndPoint.ALL_BOARDS + boardId + "/sprint/" + sprintId + "/issue?maxResults=500";
 
 		AllIssuesResponse allIssues = helper.exchangeWithJira(HttpMethod.GET, null, null, AllIssuesResponse.class, url);
 

@@ -1,6 +1,5 @@
 package org.deloitte.devops.config;
 
-
 import java.util.Arrays;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -10,10 +9,11 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 
 @Configuration
 @PropertySource(value = "classpath:ext-config.properties")
@@ -28,10 +28,19 @@ public class AppConfig {
 
 	@Bean
 	public ObjectMapper objectMapper() {
-		return new ObjectMapper()
-				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+		return new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 				.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)
 				.configure(DeserializationFeature.FAIL_ON_MISSING_CREATOR_PROPERTIES, false)
 				.configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
+	}
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedOrigins("*");
+			}
+		};
 	}
 }

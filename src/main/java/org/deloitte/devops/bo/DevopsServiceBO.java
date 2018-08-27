@@ -122,8 +122,13 @@ public class DevopsServiceBO {
 				ParameterizedTypeReference<LinkedHashMap<String, Object>> ptr = new ParameterizedTypeReference<LinkedHashMap<String, Object>>() {
 				};
 				Map<String, Object> issueDetailsStr = helper.exchangeWithJira(HttpMethod.GET, null, null, ptr, url);
-
-				storyPoints = new JSONObject(issueDetailsStr).getJSONObject("fields").getInt(customField);
+				Object customFieldObj = new JSONObject(issueDetailsStr).getJSONObject("fields").get(customField);
+				if (customFieldObj instanceof JSONObject) {
+					JSONObject customFieldJO = (JSONObject) customFieldObj;
+					storyPoints = customFieldJO.getInt("value");
+				} else {
+					storyPoints = Integer.parseInt((String) customFieldObj);
+				}
 				LOG.info("Story point for the story with id [{}] is [{}]", story.getId(), storyPoints);
 			} catch (Exception e) {
 				LOG.error("Unable to fetch story point - [{}]", e.getMessage());

@@ -1,5 +1,7 @@
 package org.deloitte.devops.config;
 
+import java.util.List;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +20,17 @@ public class EnvironmentConfig implements ApplicationEnvironment {
 	private String jenkinsUserName;
 	private String jenkinsPassword;
 	private String customFields;
+	private List<String> customFieldsByList;
+
+
+
+	public List<String> getCustomFieldsByList() {
+		return customFieldsByList;
+	}
+
+	public void setCustomFieldsByList(List<String> customFieldsByList) {
+		this.customFieldsByList = customFieldsByList;
+	}
 
 	@Override
 	public String getJiraURL() {

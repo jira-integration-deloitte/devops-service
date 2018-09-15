@@ -1,5 +1,6 @@
 package org.deloitte.devops.bo;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +72,7 @@ public class DevopsServiceBO {
 		return getStoriesFromIssues(allIssues, customField);
 	}
 
+	
 	public String getCustomField(String fieldName) {
 		LOG.info("Field to retrieve - [{}]", fieldName);
 		String customFieldMapper = environment.getCustomFields();
@@ -92,7 +94,7 @@ public class DevopsServiceBO {
 		}
 		return null;
 	}
-
+	
 	private AllIssuesDisplay getStoriesFromIssues(AllIssuesResponse issues, String customField) {
 		AllIssuesDisplay issuesToDisplay = null;
 

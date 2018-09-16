@@ -84,21 +84,22 @@ public class BoardController {
 
 
 	private List<SprintDetails> getIssuesForSprint(String boardId, List<Sprint> sprintId) {
-		List<String> sprintIds = new ArrayList<>();
+		/*List<String> sprintIds = new ArrayList<>();
 		for(Sprint spr : sprintId ) {
 			sprintIds.add(spr.getId());
-		}
+		}*/
 		AllIssuesDisplay allIssues = new AllIssuesDisplay();
 		
-		LOG.info("Fetching issues from [{}] sprint(s)", sprintIds.size());
+		LOG.info("Fetching issues from [{}] sprint(s)", sprintId.size());
 		List<SprintDetails> lst = new ArrayList<>();
-		for (String theSprintId : sprintIds) {
-			AllIssuesDisplay aid = boardsServiceBO.getAllIssuesForSprintForListOfCustomFields(boardId, theSprintId);
+		for (Sprint sprint : sprintId) {
+			AllIssuesDisplay aid = boardsServiceBO.getAllIssuesForSprintForListOfCustomFields(boardId, sprint.getId());
 			
 			if (aid != null && !CollectionUtils.isEmpty(aid.getIssues())) {
 				allIssues.addIssues(aid.getIssues());
 			}
 			SprintDetails sd = boardsServiceBO.getSprintDetails(aid);
+			sd.setSprintName(sprint.getName());
 			LOG.info("Sprint details fetched", sd);
 			lst.add(sd);
 		}

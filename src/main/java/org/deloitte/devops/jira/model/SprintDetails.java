@@ -9,6 +9,13 @@ public class SprintDetails {
 	private Integer capabilitiesFieldPopulated;
 	private Integer tshirtSizeFieldPopulated;
 	private List<StoryStatus> statuslist;
+	private String sprintName;
+	public String getSprintName() {
+		return sprintName;
+	}
+	public void setSprintName(String sprintName) {
+		this.sprintName = sprintName;
+	}
 	public List<StoryStatus> getStatuslist() {
 		return statuslist;
 	}

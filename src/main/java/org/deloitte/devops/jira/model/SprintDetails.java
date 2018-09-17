@@ -1,8 +1,9 @@
 package org.deloitte.devops.jira.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class SprintDetails {
+public class SprintDetails implements Comparable<SprintDetails> {
 
 	private Integer totalStories;
 	private Integer totalStoryPointsSFDC;
@@ -10,6 +11,8 @@ public class SprintDetails {
 	private Integer tshirtSizeFieldPopulated;
 	private List<StoryStatus> statuslist;
 	private String sprintName;
+	private List<StoryStatus> groomingStatusList;
+
 	public String getSprintName() {
 		return sprintName;
 	}
@@ -22,13 +25,14 @@ public class SprintDetails {
 	public void setStatuslist(List<StoryStatus> statuslist) {
 		this.statuslist = statuslist;
 	}
-	public List<StoryGroomingStatus> getGroomingStatusList() {
+
+	public List<StoryStatus> getGroomingStatusList() {
 		return groomingStatusList;
 	}
-	public void setGroomingStatusList(List<StoryGroomingStatus> groomingStatusList) {
+
+	public void setGroomingStatusList(List<StoryStatus> groomingStatusList) {
 		this.groomingStatusList = groomingStatusList;
 	}
-	private List<StoryGroomingStatus> groomingStatusList;
 	public Integer getTotalStories() {
 		return totalStories;
 	}
@@ -53,5 +57,38 @@ public class SprintDetails {
 	public void setTshirtSizeFieldPopulated(Integer tshirtSizeFieldPopulated) {
 		this.tshirtSizeFieldPopulated = tshirtSizeFieldPopulated;
 	}
-	
+
+	public List<String> getStoryStatuses() {
+		List<String> storyStatuses = new ArrayList<>();
+		for (StoryStatus status : statuslist) {
+			storyStatuses.add(status.getStatusName().trim());
+		}
+		return storyStatuses;
+	}
+
+	public List<String> getGroomingStatuses() {
+		List<String> storyStatuses = new ArrayList<>();
+		for (StoryStatus status : groomingStatusList) {
+			storyStatuses.add(status.getStatusName().trim());
+		}
+		return storyStatuses;
+	}
+
+	@Override
+	public int compareTo(SprintDetails o) {
+		if (o == null) {
+			return 1;
+		}
+		if (this.sprintName == o.sprintName) {
+			return 0;
+		}
+		if (this.sprintName == null) {
+			return -1;
+		}
+		if (o.sprintName == null) {
+			return 1;
+		}
+		return this.sprintName.compareTo(o.sprintName);
+	}
+
 }

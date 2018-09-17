@@ -127,29 +127,52 @@ public class BoardsServiceBO {
 			String capability = "";
 			String tShirtSize = "";
 			GroomingStatus groomingStatusObj = new GroomingStatus();
-			try {
+			try{
 				ParameterizedTypeReference<LinkedHashMap<String, Object>> ptr = new ParameterizedTypeReference<LinkedHashMap<String, Object>>() {
 				};
 				Map<String, Object> issueDetailsStr = helper.exchangeWithJira(HttpMethod.GET, null, null, ptr, url);
-				Object customFieldObj = new JSONObject(issueDetailsStr).getJSONObject("fields")
-						.get(customFieldList.get(0));
-				if (customFieldObj instanceof JSONObject) {
-					JSONObject customFieldJO = (JSONObject) customFieldObj;
-					storyPoints = customFieldJO.getInt("value");
-				} else {
-					storyPoints = Integer.parseInt((String) customFieldObj);
+				try {
+					Object customFieldObj = new JSONObject(issueDetailsStr).getJSONObject("fields")
+							.get(customFieldList.get(0));
+					if (customFieldObj instanceof JSONObject) {
+						JSONObject customFieldJO = (JSONObject) customFieldObj;
+						storyPoints = customFieldJO.getInt("value");
+					} else {
+						storyPoints = Integer.parseInt((String) customFieldObj);
+						
+					}
+					LOG.info("Story point for the story with id [{}] is [{}]", story.getId(), storyPoints);
 				}
-				capability = new JSONObject(issueDetailsStr).getJSONObject("fields").get(customFieldList.get(1))
-						.toString();
-				tShirtSize = new JSONObject(issueDetailsStr).getJSONObject("fields").get(customFieldList.get(2))
-						.toString();
-				String groomingStatus = new JSONObject(issueDetailsStr).getJSONObject("fields")
-						.get(customFieldList.get(3)).toString();
-				ObjectMapper mapper = new ObjectMapper();
-				groomingStatusObj = mapper.readValue(groomingStatus, GroomingStatus.class);
-				LOG.info("Story point for the story with id [{}] is [{}]", story.getId(), storyPoints);
+				catch (Exception e) {
+					LOG.error("Unable to fetch story point - [{}]", e.getMessage());
+				}
+				try {
+					capability = new JSONObject(issueDetailsStr).getJSONObject("fields").get(customFieldList.get(1))
+							.toString();
+					LOG.info("Capabilities for the story with id [{}] is [{}]", story.getId(), capability);
+				}catch (Exception e) {
+					LOG.error("Unable to fetch capability - [{}]", e.getMessage());
+				}
+				try {
+					tShirtSize = new JSONObject(issueDetailsStr).getJSONObject("fields").get(customFieldList.get(2))
+							.toString();
+					LOG.info("Tshirt size for the story with id [{}] is [{}]", story.getId(), tShirtSize);
+				}
+				catch (Exception e) {
+					LOG.error("Unable to fetch tShirtSize - [{}]", e.getMessage());
+				}
+				try {
+					String groomingStatus = new JSONObject(issueDetailsStr).getJSONObject("fields")
+							.get(customFieldList.get(3)).toString();
+					ObjectMapper mapper = new ObjectMapper();
+					groomingStatusObj = mapper.readValue(groomingStatus, GroomingStatus.class);
+					LOG.info("Grooming status for the story with id [{}] is [{}]", story.getId(), groomingStatus);
+				}
+				catch (Exception e) {
+					LOG.error("Some exception occured while fetching Grooming status", e.getMessage());
+				}
 			} catch (Exception e) {
-				LOG.error("Unable to fetch story point - [{}]", e.getMessage());
+				LOG.error("Some exception occured while fetching issue details.", e.getMessage());
 			}
 
 			story.setStoryPoint(storyPoints);

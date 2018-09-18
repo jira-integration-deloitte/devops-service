@@ -16,6 +16,39 @@ public class Issue {
 	private String key;
 	@JsonProperty("fields")
 	private Fields fields;
+	//Naman Kaushik code for new requirement
+	private String capability;
+	private String tShirtSize;
+	private String groomingStatus;
+	
+	
+	
+	
+	
+	
+	public String getCapability() {
+		return capability;
+	}
+
+	public void setCapability(String capability) {
+		this.capability = capability;
+	}
+
+	public String gettShirtSize() {
+		return tShirtSize;
+	}
+
+	public void settShirtSize(String tShirtSize) {
+		this.tShirtSize = tShirtSize;
+	}
+
+	public String getGroomingStatus() {
+		return groomingStatus;
+	}
+
+	public void setGroomingStatus(String groomingStatus) {
+		this.groomingStatus = groomingStatus;
+	}
 
 	public String getExpand() {
 		return expand;

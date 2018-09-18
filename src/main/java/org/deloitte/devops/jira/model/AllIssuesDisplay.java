@@ -69,8 +69,12 @@ public class AllIssuesDisplay implements Serializable {
 			}
 			id.setStatus(i.getFields().getStatus().getName());
 			id.setStatusColor(i.getFields().getStatus().getStatusCategory().getColorName());
-
+			
 			id.setStoryPoint(i.getStoryPoint());
+			//Naman Kaushik code for new requirement
+			id.setCapability(i.getCapability());
+			id.setGroomingStatus(i.getGroomingStatus());
+			id.settShirtSize(i.gettShirtSize());
 			
 			if (StringUtils.isEmpty(id.getDescription())) {
 				
@@ -109,7 +113,35 @@ public class AllIssuesDisplay implements Serializable {
 		private int storyPoint;
 		private String sprintName;
 		private String projectName;
+		//Naman Kaushik code for new requirement
+		private String capability;
+		public String getCapability() {
+			return capability;
+		}
 
+		public void setCapability(String capability) {
+			this.capability = capability;
+		}
+
+		public String gettShirtSize() {
+			return tShirtSize;
+		}
+
+		public void settShirtSize(String tShirtSize) {
+			this.tShirtSize = tShirtSize;
+		}
+
+		public String getGroomingStatus() {
+			return groomingStatus;
+		}
+
+		public void setGroomingStatus(String groomingStatus) {
+			this.groomingStatus = groomingStatus;
+		}
+
+		private String tShirtSize;
+		private String groomingStatus;
+		
 		public String getUrlSm() {
 			return urlSm;
 		}

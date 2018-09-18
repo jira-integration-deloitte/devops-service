@@ -2,33 +2,134 @@
     "sprintDetails": [
         {
             "totalStories": 99,
-            "totalStoryPointsSFDC": 49,
-            "capabilitiesFieldPopulated": 8,
-            "tshirtSizeFieldPopulated": 4,
+            "totalStoryPointsSFDC": 51,
+            "capabilitiesFieldPopulated": 13,
+            "tshirtSizeFieldPopulated": 81,
             "statuslist": [
+                {
+                    "statusName": "Approved",
+                    "storyCount": 0
+                },
                 {
                     "statusName": "Approved for Development",
                     "storyCount": 1
                 },
                 {
-                    "statusName": "Ready for Test Release",
-                    "storyCount": 2
-                },
-                {
-                    "statusName": "Test",
-                    "storyCount": 2
+                    "statusName": "Defects Identified",
+                    "storyCount": 0
                 },
                 {
                     "statusName": "Dev In Progress",
                     "storyCount": 5
                 },
                 {
-                    "statusName": "Ready for Release",
-                    "storyCount": 14
+                    "statusName": "In Pre Production",
+                    "storyCount": 0
                 },
                 {
                     "statusName": "Open",
                     "storyCount": 75
+                },
+                {
+                    "statusName": "Ready for Release",
+                    "storyCount": 14
+                },
+                {
+                    "statusName": "Ready for Test Release",
+                    "storyCount": 2
+                },
+                {
+                    "statusName": "Ready for test",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Test",
+                    "storyCount": 2
+                }
+            ],
+            "sprintName": null,
+            "groomingStatusList": [
+                {
+                    "statusName": "Completed",
+                    "storyCount": 11
+                },
+                {
+                    "statusName": "Duplicate / Rejected",
+                    "storyCount": 85
+                },
+                {
+                    "statusName": "In Progress",
+                    "storyCount": 2
+                },
+                {
+                    "statusName": "New",
+                    "storyCount": 1
+                }
+            ],
+            "storyStatuses": [
+                "Approved",
+                "Approved for Development",
+                "Defects Identified",
+                "Dev In Progress",
+                "In Pre Production",
+                "Open",
+                "Ready for Release",
+                "Ready for Test Release",
+                "Ready for test",
+                "Test"
+            ],
+            "groomingStatuses": [
+                "Completed",
+                "Duplicate / Rejected",
+                "In Progress",
+                "New"
+            ]
+        },
+        {
+            "totalStories": 14,
+            "totalStoryPointsSFDC": 3,
+            "capabilitiesFieldPopulated": 1,
+            "tshirtSizeFieldPopulated": 12,
+            "statuslist": [
+                {
+                    "statusName": "Approved",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Approved for Development",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Defects Identified",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Dev In Progress",
+                    "storyCount": 1
+                },
+                {
+                    "statusName": "In Pre Production",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Open",
+                    "storyCount": 13
+                },
+                {
+                    "statusName": "Ready for Release",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for Test Release",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for test",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Test",
+                    "storyCount": 0
                 }
             ],
             "sprintName": null,
@@ -39,128 +140,205 @@
                 },
                 {
                     "statusName": "Duplicate / Rejected",
-                    "storyCount": 3
-                }
-            ],
-            "storyStatuses": [
-                "Approved for Development",
-                "Ready for Test Release",
-                "Test",
-                "Dev In Progress",
-                "Ready for Release",
-                "Open"
-            ],
-            "groomingStatuses": [
-                "Completed",
-                "Duplicate / Rejected"
-            ]
-        },
-        {
-            "totalStories": 14,
-            "totalStoryPointsSFDC": 3,
-            "capabilitiesFieldPopulated": 1,
-            "tshirtSizeFieldPopulated": 0,
-            "statuslist": [
-                {
-                    "statusName": "Dev In Progress",
                     "storyCount": 1
                 },
                 {
-                    "statusName": "Open",
-                    "storyCount": 13
+                    "statusName": "In Progress",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "New",
+                    "storyCount": 0
                 }
             ],
-            "sprintName": null,
-            "groomingStatusList": [],
             "storyStatuses": [
+                "Approved",
+                "Approved for Development",
+                "Defects Identified",
                 "Dev In Progress",
-                "Open"
+                "In Pre Production",
+                "Open",
+                "Ready for Release",
+                "Ready for Test Release",
+                "Ready for test",
+                "Test"
             ],
-            "groomingStatuses": []
+            "groomingStatuses": [
+                "Completed",
+                "Duplicate / Rejected",
+                "In Progress",
+                "New"
+            ]
         },
         {
             "totalStories": 3,
             "totalStoryPointsSFDC": 6,
-            "capabilitiesFieldPopulated": 2,
-            "tshirtSizeFieldPopulated": 2,
+            "capabilitiesFieldPopulated": 3,
+            "tshirtSizeFieldPopulated": 3,
             "statuslist": [
-                {
-                    "statusName": "Open",
-                    "storyCount": 3
-                }
-            ],
-            "sprintName": null,
-            "groomingStatusList": [],
-            "storyStatuses": [
-                "Open"
-            ],
-            "groomingStatuses": []
-        },
-        {
-            "totalStories": 34,
-            "totalStoryPointsSFDC": 27,
-            "capabilitiesFieldPopulated": 30,
-            "tshirtSizeFieldPopulated": 1,
-            "statuslist": [
-                {
-                    "statusName": "Ready for Test Release",
-                    "storyCount": 2
-                },
-                {
-                    "statusName": "Test",
-                    "storyCount": 10
-                },
-                {
-                    "statusName": "Dev In Progress",
-                    "storyCount": 3
-                },
                 {
                     "statusName": "Approved",
-                    "storyCount": 2
+                    "storyCount": 0
                 },
                 {
-                    "statusName": "Ready for Release",
-                    "storyCount": 12
+                    "statusName": "Approved for Development",
+                    "storyCount": 0
                 },
                 {
                     "statusName": "Defects Identified",
-                    "storyCount": 3
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Dev In Progress",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "In Pre Production",
+                    "storyCount": 0
                 },
                 {
                     "statusName": "Open",
-                    "storyCount": 2
+                    "storyCount": 3
+                },
+                {
+                    "statusName": "Ready for Release",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for Test Release",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for test",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Test",
+                    "storyCount": 0
                 }
             ],
             "sprintName": null,
             "groomingStatusList": [
                 {
                     "statusName": "Completed",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Duplicate / Rejected",
                     "storyCount": 1
+                },
+                {
+                    "statusName": "In Progress",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "New",
+                    "storyCount": 0
                 }
             ],
             "storyStatuses": [
-                "Ready for Test Release",
-                "Test",
-                "Dev In Progress",
                 "Approved",
-                "Ready for Release",
+                "Approved for Development",
                 "Defects Identified",
-                "Open"
+                "Dev In Progress",
+                "In Pre Production",
+                "Open",
+                "Ready for Release",
+                "Ready for Test Release",
+                "Ready for test",
+                "Test"
             ],
             "groomingStatuses": [
-                "Completed"
+                "Completed",
+                "Duplicate / Rejected",
+                "In Progress",
+                "New"
             ]
         },
         {
-            "totalStories": 343,
-            "totalStoryPointsSFDC": 396,
-            "capabilitiesFieldPopulated": 234,
-            "tshirtSizeFieldPopulated": 57,
-            "statuslist": [],
+            "totalStories": 344,
+            "totalStoryPointsSFDC": 400,
+            "capabilitiesFieldPopulated": 244,
+            "tshirtSizeFieldPopulated": 147,
+            "statuslist": [
+                {
+                    "statusName": "Approved",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Approved for Development",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Defects Identified",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Dev In Progress",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "In Pre Production",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Open",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for Release",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for Test Release",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for test",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Test",
+                    "storyCount": 0
+                }
+            ],
             "sprintName": null,
-            "groomingStatusList": [],
-            "storyStatuses": [],
-            "groomingStatuses": []
+            "groomingStatusList": [
+                {
+                    "statusName": "Completed",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Duplicate / Rejected",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "In Progress",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "New",
+                    "storyCount": 0
+                }
+            ],
+            "storyStatuses": [
+                "Approved",
+                "Approved for Development",
+                "Defects Identified",
+                "Dev In Progress",
+                "In Pre Production",
+                "Open",
+                "Ready for Release",
+                "Ready for Test Release",
+                "Ready for test",
+                "Test"
+            ],
+            "groomingStatuses": [
+                "Completed",
+                "Duplicate / Rejected",
+                "In Progress",
+                "New"
+            ]
         },
         {
             "totalStories": 1,
@@ -169,8 +347,44 @@
             "tshirtSizeFieldPopulated": 1,
             "statuslist": [
                 {
+                    "statusName": "Approved",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Approved for Development",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Defects Identified",
+                    "storyCount": 0
+                },
+                {
                     "statusName": "Dev In Progress",
                     "storyCount": 1
+                },
+                {
+                    "statusName": "In Pre Production",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Open",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for Release",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for Test Release",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for test",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Test",
+                    "storyCount": 0
                 }
             ],
             "sprintName": "UD Unallocated Sprint",
@@ -178,13 +392,37 @@
                 {
                     "statusName": "Completed",
                     "storyCount": 1
+                },
+                {
+                    "statusName": "Duplicate / Rejected",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "In Progress",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "New",
+                    "storyCount": 0
                 }
             ],
             "storyStatuses": [
-                "Dev In Progress"
+                "Approved",
+                "Approved for Development",
+                "Defects Identified",
+                "Dev In Progress",
+                "In Pre Production",
+                "Open",
+                "Ready for Release",
+                "Ready for Test Release",
+                "Ready for test",
+                "Test"
             ],
             "groomingStatuses": [
-                "Completed"
+                "Completed",
+                "Duplicate / Rejected",
+                "In Progress",
+                "New"
             ]
         },
         {
@@ -198,23 +436,78 @@
                     "storyCount": 28
                 },
                 {
+                    "statusName": "Approved for Development",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Defects Identified",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Dev In Progress",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "In Pre Production",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Open",
+                    "storyCount": 0
+                },
+                {
                     "statusName": "Ready for Release",
                     "storyCount": 5
+                },
+                {
+                    "statusName": "Ready for Test Release",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for test",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Test",
+                    "storyCount": 0
                 }
             ],
             "sprintName": "US Harmonization Sprint",
             "groomingStatusList": [
                 {
                     "statusName": "Completed",
-                    "storyCount": 3
+                    "storyCount": 8
+                },
+                {
+                    "statusName": "Duplicate / Rejected",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "In Progress",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "New",
+                    "storyCount": 0
                 }
             ],
             "storyStatuses": [
                 "Approved",
-                "Ready for Release"
+                "Approved for Development",
+                "Defects Identified",
+                "Dev In Progress",
+                "In Pre Production",
+                "Open",
+                "Ready for Release",
+                "Ready for Test Release",
+                "Ready for test",
+                "Test"
             ],
             "groomingStatuses": [
-                "Completed"
+                "Completed",
+                "Duplicate / Rejected",
+                "In Progress",
+                "New"
             ]
         },
         {
@@ -226,6 +519,42 @@
                 {
                     "statusName": "Approved",
                     "storyCount": 21
+                },
+                {
+                    "statusName": "Approved for Development",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Defects Identified",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Dev In Progress",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "In Pre Production",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Open",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for Release",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for Test Release",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for test",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Test",
+                    "storyCount": 0
                 }
             ],
             "sprintName": "US Sprint 2",
@@ -233,13 +562,37 @@
                 {
                     "statusName": "Completed",
                     "storyCount": 21
+                },
+                {
+                    "statusName": "Duplicate / Rejected",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "In Progress",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "New",
+                    "storyCount": 0
                 }
             ],
             "storyStatuses": [
-                "Approved"
+                "Approved",
+                "Approved for Development",
+                "Defects Identified",
+                "Dev In Progress",
+                "In Pre Production",
+                "Open",
+                "Ready for Release",
+                "Ready for Test Release",
+                "Ready for test",
+                "Test"
             ],
             "groomingStatuses": [
-                "Completed"
+                "Completed",
+                "Duplicate / Rejected",
+                "In Progress",
+                "New"
             ]
         },
         {
@@ -250,26 +603,81 @@
             "statuslist": [
                 {
                     "statusName": "Approved",
-                    "storyCount": 28
+                    "storyCount": 30
+                },
+                {
+                    "statusName": "Approved for Development",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Defects Identified",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Dev In Progress",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "In Pre Production",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Open",
+                    "storyCount": 0
                 },
                 {
                     "statusName": "Ready for Release",
-                    "storyCount": 2
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for Test Release",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for test",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Test",
+                    "storyCount": 0
                 }
             ],
             "sprintName": "US Sprint 3",
             "groomingStatusList": [
                 {
                     "statusName": "Completed",
-                    "storyCount": 12
+                    "storyCount": 23
+                },
+                {
+                    "statusName": "Duplicate / Rejected",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "In Progress",
+                    "storyCount": 6
+                },
+                {
+                    "statusName": "New",
+                    "storyCount": 0
                 }
             ],
             "storyStatuses": [
                 "Approved",
-                "Ready for Release"
+                "Approved for Development",
+                "Defects Identified",
+                "Dev In Progress",
+                "In Pre Production",
+                "Open",
+                "Ready for Release",
+                "Ready for Test Release",
+                "Ready for test",
+                "Test"
             ],
             "groomingStatuses": [
-                "Completed"
+                "Completed",
+                "Duplicate / Rejected",
+                "In Progress",
+                "New"
             ]
         },
         {
@@ -283,28 +691,78 @@
                     "storyCount": 52
                 },
                 {
-                    "statusName": "Ready for Release",
-                    "storyCount": 1
+                    "statusName": "Approved for Development",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Defects Identified",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Dev In Progress",
+                    "storyCount": 0
                 },
                 {
                     "statusName": "In Pre Production",
                     "storyCount": 1
+                },
+                {
+                    "statusName": "Open",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for Release",
+                    "storyCount": 1
+                },
+                {
+                    "statusName": "Ready for Test Release",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for test",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Test",
+                    "storyCount": 0
                 }
             ],
             "sprintName": "US Sprint 4",
             "groomingStatusList": [
                 {
                     "statusName": "Completed",
-                    "storyCount": 8
+                    "storyCount": 54
+                },
+                {
+                    "statusName": "Duplicate / Rejected",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "In Progress",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "New",
+                    "storyCount": 0
                 }
             ],
             "storyStatuses": [
                 "Approved",
+                "Approved for Development",
+                "Defects Identified",
+                "Dev In Progress",
+                "In Pre Production",
+                "Open",
                 "Ready for Release",
-                "In Pre Production"
+                "Ready for Test Release",
+                "Ready for test",
+                "Test"
             ],
             "groomingStatuses": [
-                "Completed"
+                "Completed",
+                "Duplicate / Rejected",
+                "In Progress",
+                "New"
             ]
         },
         {
@@ -315,31 +773,171 @@
             "statuslist": [
                 {
                     "statusName": "Approved",
-                    "storyCount": 26
+                    "storyCount": 30
+                },
+                {
+                    "statusName": "Approved for Development",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Defects Identified",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Dev In Progress",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "In Pre Production",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Open",
+                    "storyCount": 0
                 },
                 {
                     "statusName": "Ready for Release",
-                    "storyCount": 28
+                    "storyCount": 24
+                },
+                {
+                    "statusName": "Ready for Test Release",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for test",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Test",
+                    "storyCount": 0
                 }
             ],
             "sprintName": "US Sprint 5",
             "groomingStatusList": [
                 {
                     "statusName": "Completed",
-                    "storyCount": 5
+                    "storyCount": 54
+                },
+                {
+                    "statusName": "Duplicate / Rejected",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "In Progress",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "New",
+                    "storyCount": 0
                 }
             ],
             "storyStatuses": [
                 "Approved",
-                "Ready for Release"
+                "Approved for Development",
+                "Defects Identified",
+                "Dev In Progress",
+                "In Pre Production",
+                "Open",
+                "Ready for Release",
+                "Ready for Test Release",
+                "Ready for test",
+                "Test"
             ],
             "groomingStatuses": [
-                "Completed"
+                "Completed",
+                "Duplicate / Rejected",
+                "In Progress",
+                "New"
+            ]
+        },
+        {
+            "totalStories": 35,
+            "totalStoryPointsSFDC": 29,
+            "capabilitiesFieldPopulated": 34,
+            "tshirtSizeFieldPopulated": 1,
+            "statuslist": [
+                {
+                    "statusName": "Approved",
+                    "storyCount": 6
+                },
+                {
+                    "statusName": "Approved for Development",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Defects Identified",
+                    "storyCount": 2
+                },
+                {
+                    "statusName": "Dev In Progress",
+                    "storyCount": 7
+                },
+                {
+                    "statusName": "In Pre Production",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Open",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "Ready for Release",
+                    "storyCount": 8
+                },
+                {
+                    "statusName": "Ready for Test Release",
+                    "storyCount": 1
+                },
+                {
+                    "statusName": "Ready for test",
+                    "storyCount": 2
+                },
+                {
+                    "statusName": "Test",
+                    "storyCount": 9
+                }
+            ],
+            "sprintName": "US Sprint 6",
+            "groomingStatusList": [
+                {
+                    "statusName": "Completed",
+                    "storyCount": 32
+                },
+                {
+                    "statusName": "Duplicate / Rejected",
+                    "storyCount": 0
+                },
+                {
+                    "statusName": "In Progress",
+                    "storyCount": 2
+                },
+                {
+                    "statusName": "New",
+                    "storyCount": 0
+                }
+            ],
+            "storyStatuses": [
+                "Approved",
+                "Approved for Development",
+                "Defects Identified",
+                "Dev In Progress",
+                "In Pre Production",
+                "Open",
+                "Ready for Release",
+                "Ready for Test Release",
+                "Ready for test",
+                "Test"
+            ],
+            "groomingStatuses": [
+                "Completed",
+                "Duplicate / Rejected",
+                "In Progress",
+                "New"
             ]
         }
     ],
-    "statusColCount": 9,
-    "groomingStatusColCount": 2,
+    "statusColCount": 10,
+    "groomingStatusColCount": 4,
     "statuses": [
         "Approved",
         "Approved for Development",
@@ -349,10 +947,13 @@
         "Open",
         "Ready for Release",
         "Ready for Test Release",
+        "Ready for test",
         "Test"
     ],
     "groomingStatuses": [
         "Completed",
-        "Duplicate / Rejected"
+        "Duplicate / Rejected",
+        "In Progress",
+        "New"
     ]
 }

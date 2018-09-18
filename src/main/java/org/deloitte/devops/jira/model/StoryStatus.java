@@ -1,6 +1,17 @@
 package org.deloitte.devops.jira.model;
 
 public class StoryStatus implements Comparable<StoryStatus> {
+	public StoryStatus() {
+	}
+
+	public StoryStatus(String statusName) {
+		this(statusName, 0);
+	}
+
+	public StoryStatus(String statusName, Integer storyCount) {
+		this.statusName = statusName;
+		this.storyCount = storyCount;
+	}
 
 	private String statusName;
 	private Integer storyCount;

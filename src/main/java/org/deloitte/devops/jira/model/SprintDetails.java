@@ -1,6 +1,7 @@
 package org.deloitte.devops.jira.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SprintDetails implements Comparable<SprintDetails> {
@@ -72,6 +73,24 @@ public class SprintDetails implements Comparable<SprintDetails> {
 			storyStatuses.add(status.getStatusName().trim());
 		}
 		return storyStatuses;
+	}
+
+	public void createStoryStatuses(List<String> statuses) {
+		this.setStatuslist(new ArrayList<>());
+		for (String status : statuses) {
+			this.statuslist.add(new StoryStatus(status));
+		}
+		Collections.sort(this.statuslist);
+	}
+
+	public void createGroomingStatuses(List<String> statuses) {
+		this.setGroomingStatusList(new ArrayList<>());
+
+		for (String status : statuses) {
+			this.groomingStatusList.add(new StoryStatus(status));
+		}
+
+		Collections.sort(this.groomingStatusList);
 	}
 
 	@Override

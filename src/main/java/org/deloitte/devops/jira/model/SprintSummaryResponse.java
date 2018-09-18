@@ -18,6 +18,7 @@ public class SprintSummaryResponse implements Serializable {
 	public SprintSummaryResponse(List<SprintDetails> sprintDetails) {
 		this.sprintDetails = sprintDetails;
 		setTitleMakers();
+		setTotalObject();
 	}
 
 	private List<SprintDetails> sprintDetails;
@@ -26,6 +27,8 @@ public class SprintSummaryResponse implements Serializable {
 	private Integer groomingStatusColCount;
 	private List<String> statuses;
 	private List<String> groomingStatuses;
+
+	private SprintDetails total;
 
 	public List<SprintDetails> getSprintDetails() {
 		return sprintDetails;
@@ -65,6 +68,14 @@ public class SprintSummaryResponse implements Serializable {
 
 	public void setGroomingStatuses(List<String> groomingStatuses) {
 		this.groomingStatuses = groomingStatuses;
+	}
+
+	public SprintDetails getTotal() {
+		return total;
+	}
+
+	public void setTotal(SprintDetails total) {
+		this.total = total;
 	}
 
 	private void setTitleMakers() {
@@ -123,6 +134,47 @@ public class SprintSummaryResponse implements Serializable {
 
 	private int sizeOf(Collection<?> statuses) {
 		return statuses == null ? 0 : statuses.size();
+	}
+
+	private void setTotalObject() {
+		int totalStories = 0;
+		int totalStoryPointsSFDC = 0;
+		int totalCapabilitiesFieldPopulated = 0;
+		int totalTshirtSizeFieldPopulated = 0;
+
+		SprintDetails total = new SprintDetails();
+
+		total.createStoryStatuses(this.statuses);
+		total.createGroomingStatuses(this.groomingStatuses);
+
+		for (SprintDetails sprint : sprintDetails) {
+			totalStories += sprint.getTotalStories();
+			totalStoryPointsSFDC += sprint.getTotalStoryPointsSFDC();
+			totalCapabilitiesFieldPopulated += sprint.getCapabilitiesFieldPopulated();
+			totalTshirtSizeFieldPopulated += sprint.getTshirtSizeFieldPopulated();
+
+			for (StoryStatus theStatus : sprint.getStatuslist()) {
+				Optional<StoryStatus> existing = total.getStatuslist().stream()
+						.filter(aStatus -> theStatus.getStatusName().equals(aStatus.getStatusName())).findFirst();
+				StoryStatus insideTotal = existing.get();
+				insideTotal.setStoryCount(insideTotal.getStoryCount() + theStatus.getStoryCount());
+			}
+
+			for (StoryStatus theStatus : sprint.getGroomingStatusList()) {
+				Optional<StoryStatus> existing = total.getGroomingStatusList().stream()
+						.filter(aStatus -> theStatus.getStatusName().equals(aStatus.getStatusName())).findFirst();
+				StoryStatus insideTotal = existing.get();
+				insideTotal.setStoryCount(insideTotal.getStoryCount() + theStatus.getStoryCount());
+			}
+		}
+
+
+		total.setTotalStories(totalStories);
+		total.setTotalStoryPointsSFDC(totalStoryPointsSFDC);
+		total.setCapabilitiesFieldPopulated(totalCapabilitiesFieldPopulated);
+		total.setTshirtSizeFieldPopulated(totalTshirtSizeFieldPopulated);
+
+		setTotal(total);
 	}
 
 }

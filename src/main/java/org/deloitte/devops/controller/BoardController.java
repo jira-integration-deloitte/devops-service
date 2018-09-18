@@ -45,8 +45,8 @@ public class BoardController {
 
 		List<SprintDetails> sprintDetails = getIssuesForSprint(boardId, sprints);
 
-		SprintDetails total = getTotalForEachColumn(sprintDetails);
-		sprintDetails.add(total);
+		//SprintDetails total = getTotalForEachColumn(sprintDetails);
+		//sprintDetails.add(total);
 
 		SprintSummaryResponse response = new SprintSummaryResponse(sprintDetails);
 

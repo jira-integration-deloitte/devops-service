@@ -12,7 +12,6 @@ import org.deloitte.devops.jira.model.AllSprints;
 import org.deloitte.devops.jira.model.Sprint;
 import org.deloitte.devops.jira.model.SprintDetails;
 import org.deloitte.devops.jira.model.SprintSummaryResponse;
-import org.deloitte.devops.jira.model.StoryStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,6 @@ public class BoardController {
 	@Autowired
 	private BoardsServiceBO boardsServiceBO;
 
-
 	@GetMapping(value = "/board/{boardId}/sprintsDetails", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public Object getSprintsForBoard(@PathVariable("boardId") String boardId,
 			@RequestParam(required = false) boolean testOnly) {
@@ -45,40 +43,10 @@ public class BoardController {
 
 		List<SprintDetails> sprintDetails = getIssuesForSprint(boardId, sprints);
 
-		//SprintDetails total = getTotalForEachColumn(sprintDetails);
-		//sprintDetails.add(total);
-
 		SprintSummaryResponse response = new SprintSummaryResponse(sprintDetails);
 
 		return response;
 	}
-
-
-	private SprintDetails getTotalForEachColumn(List<SprintDetails> list) {
-		SprintDetails ststotal = new SprintDetails();
-		int totalStories=0;
-		int totalStoryPointsSFDC=0;
-		int capabilitiesFieldPopulated=0;
-		int tshirtSizeFieldPopulated=0;
-		List<StoryStatus> lstTotalGroom = new ArrayList<>();
-		List<StoryStatus> lstTotalStatus = new ArrayList<>();
-
-		for(SprintDetails sts:list) {
-			totalStories = totalStories+sts.getTotalStories();
-			totalStoryPointsSFDC=totalStoryPointsSFDC+sts.getTotalStoryPointsSFDC();
-			capabilitiesFieldPopulated=capabilitiesFieldPopulated+sts.getCapabilitiesFieldPopulated();
-			tshirtSizeFieldPopulated=tshirtSizeFieldPopulated+sts.getTshirtSizeFieldPopulated();
-
-		}
-		ststotal.setTotalStories(totalStories);
-		ststotal.setTotalStoryPointsSFDC(totalStoryPointsSFDC);
-		ststotal.setCapabilitiesFieldPopulated(capabilitiesFieldPopulated);
-		ststotal.setTshirtSizeFieldPopulated(tshirtSizeFieldPopulated);
-		ststotal.setStatuslist(lstTotalStatus);
-		ststotal.setGroomingStatusList(lstTotalGroom);
-		return ststotal;
-	}
-
 
 	private List<SprintDetails> getIssuesForSprint(String boardId, List<Sprint> sprintIDs) {
 		AllIssuesDisplay allIssues = new AllIssuesDisplay();
@@ -86,7 +54,8 @@ public class BoardController {
 		LOG.info("Fetching issues from [{}] sprint(s)", sprintIDs.size());
 		List<SprintDetails> lst = new ArrayList<>();
 		for (Sprint sprint : sprintIDs) {
-			AllIssuesDisplay allIssuesDisplay = boardsServiceBO.getAllIssuesForSprintForListOfCustomFields(boardId, sprint.getId());
+			AllIssuesDisplay allIssuesDisplay = boardsServiceBO.getAllIssuesForSprintForListOfCustomFields(boardId,
+					sprint.getId());
 
 			if (allIssuesDisplay != null && !CollectionUtils.isEmpty(allIssuesDisplay.getIssues())) {
 				allIssues.addIssues(allIssuesDisplay.getIssues());
@@ -96,7 +65,6 @@ public class BoardController {
 			LOG.info("Sprint details fetched", sprintDetails);
 			lst.add(sprintDetails);
 		}
-
 
 		return lst;
 	}

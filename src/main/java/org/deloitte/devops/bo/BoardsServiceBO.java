@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import org.deloitte.devops.config.ApplicationEnvironment;
@@ -15,7 +18,6 @@ import org.deloitte.devops.jira.model.AllIssuesDisplay.IssueDisplay;
 import org.deloitte.devops.jira.model.AllIssuesResponse;
 import org.deloitte.devops.jira.model.AllSprints;
 import org.deloitte.devops.jira.model.CustomField;
-import org.deloitte.devops.jira.model.GroomingStatus;
 import org.deloitte.devops.jira.model.Issue;
 import org.deloitte.devops.jira.model.SprintDetails;
 import org.deloitte.devops.jira.model.StoryStatus;
@@ -29,8 +31,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
 public class BoardsServiceBO {
@@ -119,75 +119,90 @@ public class BoardsServiceBO {
 	}
 
 	private void updateStoryDetails(List<Issue> stories, List<String> customFieldList) {
+		ExecutorService executorService = Executors.newFixedThreadPool(10);
+
 		for (Issue story : stories) {
-			String url = story.getSelf();
-			url = url.replace(environment.getJiraURL(), "");
+			Callable<Issue> future = () -> updateStory(story, customFieldList);
+			executorService.submit(future);
+		}
+		executorService.shutdown();
+	}
 
-			int storyPoints = 0;
-			String capability = "";
-			String tShirtSize = "";
-			GroomingStatus groomingStatusObj = new GroomingStatus();
+	private Issue updateStory(Issue story, List<String> customFieldList) {
+		String url = story.getSelf();
+		url = url.replace(environment.getJiraURL(), "");
+
+		int storyPoints = 0;
+		String capability = null;
+		String tShirtSize = null;
+		String groomingStatus = null;
+
+		try {
+			ParameterizedTypeReference<LinkedHashMap<String, Object>> ptr = new ParameterizedTypeReference<LinkedHashMap<String, Object>>() {
+			};
+			Map<String, Object> issueDetailsStr = helper.exchangeWithJira(HttpMethod.GET, null, null, ptr, url);
 			try {
-				ParameterizedTypeReference<LinkedHashMap<String, Object>> ptr = new ParameterizedTypeReference<LinkedHashMap<String, Object>>() {
-				};
-				Map<String, Object> issueDetailsStr = helper.exchangeWithJira(HttpMethod.GET, null, null, ptr, url);
-				try {
-					Object customFieldObj = new JSONObject(issueDetailsStr).getJSONObject("fields")
-							.get(customFieldList.get(0));
-					if (customFieldObj instanceof JSONObject) {
-						JSONObject customFieldJO = (JSONObject) customFieldObj;
-						storyPoints = customFieldJO.getInt("value");
-					} else {
-						storyPoints = Integer.parseInt((String) customFieldObj);
+				Object customFieldObj = new JSONObject(issueDetailsStr).getJSONObject("fields")
+						.get(customFieldList.get(0));
+				if (customFieldObj instanceof JSONObject) {
+					JSONObject customFieldJO = (JSONObject) customFieldObj;
+					storyPoints = customFieldJO.getInt("value");
+				} else {
+					storyPoints = Integer.parseInt((String) customFieldObj);
 
-					}
-					LOG.info("Story point for the story with id [{}] is [{}]", story.getId(), storyPoints);
-				} catch (Exception e) {
-					LOG.error("Unable to fetch story point - [{}]", e.getMessage());
 				}
-				try {
-					capability = new JSONObject(issueDetailsStr).getJSONObject("fields").get(customFieldList.get(1)).toString();
-					LOG.info("Capabilities for the story with id [{}] is [{}]", story.getId(), capability);
-				} catch (Exception e) {
-					LOG.error("Unable to fetch capability - [{}]", e.getMessage());
-				}
-				try {
-					tShirtSize = new JSONObject(issueDetailsStr).getJSONObject("fields").get(customFieldList.get(2)).toString();
-					LOG.info("Tshirt size for the story with id [{}] is [{}]", story.getId(), tShirtSize);
-				} catch (Exception e) {
-					LOG.error("Unable to fetch tShirtSize - [{}]", e.getMessage());
-				}
-				try {
-					String groomingStatus = new JSONObject(issueDetailsStr).getJSONObject("fields").get(customFieldList.get(3)).toString();
-					ObjectMapper mapper = new ObjectMapper();
-					groomingStatusObj = mapper.readValue(groomingStatus, GroomingStatus.class);
-					LOG.info("Grooming status for the story with id [{}] is [{}]", story.getId(), groomingStatus);
-				} catch (Exception e) {
-					LOG.error("Some exception occured while fetching Grooming status", e.getMessage());
-				}
+				LOG.info("Story point for the story with id [{}] is [{}]", story.getId(), storyPoints);
 			} catch (Exception e) {
-				LOG.error("Some exception occured while fetching issue details.", e.getMessage());
+				LOG.error("Unable to fetch story point - [{}]", e.getMessage());
 			}
+			try {
+				capability = new JSONObject(issueDetailsStr).getJSONObject("fields").get(customFieldList.get(1))
+						.toString();
+				LOG.info("Capabilities for the story with id [{}] is [{}]", story.getId(), capability);
+			} catch (Exception e) {
+				LOG.error("Unable to fetch capability - [{}]", e.getMessage());
+			}
+			try {
+				tShirtSize = new JSONObject(issueDetailsStr).getJSONObject("fields").get(customFieldList.get(2))
+						.toString();
+				LOG.info("Tshirt size for the story with id [{}] is [{}]", story.getId(), tShirtSize);
+			} catch (Exception e) {
+				LOG.error("Unable to fetch tShirtSize - [{}]", e.getMessage());
+			}
+			try {
+				groomingStatus = new JSONObject(issueDetailsStr).getJSONObject("fields").get(customFieldList.get(3))
+						.toString();
 
-			story.setStoryPoint(storyPoints);
-			story.setCapability(capability);
-			story.setGroomingStatus(groomingStatusObj.getValue());
-			story.settShirtSize(tShirtSize);
+				LOG.info("Grooming status for the story with id [{}] is [{}]", story.getId(), groomingStatus);
+			} catch (Exception e) {
+				LOG.error("Some exception occured while fetching Grooming status", e.getMessage());
+			}
+		} catch (Exception e) {
+			LOG.error("Some exception occured while fetching issue details.", e.getMessage());
 		}
 
+		story.setStoryPoint(storyPoints);
+		story.setCapability(capability);
+		story.setGroomingStatus(groomingStatus);
+		story.settShirtSize(tShirtSize);
+		return story;
 	}
 
 	public SprintDetails getSprintDetails(AllIssuesDisplay allIssuesDisplay) {
 		SprintDetails sprintDetails = new SprintDetails();
 		List<IssueDisplay> storyList = allIssuesDisplay.getIssues();
-		Integer storiesCount = storyList.size();
-		Integer sumOfStoryPoints = addTotalStoryPoints(storyList);
-		Integer numOfCapabilititesField = calculateCapabilitiesFieldPopulated(storyList);
-		Integer numOfTShirtSizeField = calculateTShirtSizeFieldPopulated(storyList);
+		int storiesCount = storyList.size();
+		int sumOfStoryPoints = addTotalStoryPoints(storyList);
+		int numOfCapabilititesField = calculateCapabilitiesFieldPopulated(storyList);
+		int numOfTShirtSizeField = calculateTShirtSizeFieldPopulated(storyList);
+
 		Map<String, Integer> statusMap = gatherTotalStatusCounts(storyList);
+
 		List<StoryStatus> statusList = new ArrayList<>();
 		List<StoryStatus> groomingStatusList = new ArrayList<>();
+
 		StoryStatus storyStatusObj = null;
+
 		if (statusMap != null) {
 			for (String status : statusMap.keySet()) {
 				storyStatusObj = new StoryStatus();

@@ -2,9 +2,14 @@ package org.deloitte.devops.controller;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.deloitte.devops.bo.BoardsServiceBO;
 import org.deloitte.devops.jira.model.AllIssuesDisplay;
@@ -52,21 +57,40 @@ public class BoardController {
 		AllIssuesDisplay allIssues = new AllIssuesDisplay();
 
 		LOG.info("Fetching issues from [{}] sprint(s)", sprintIDs.size());
-		List<SprintDetails> lst = new ArrayList<>();
-		for (Sprint sprint : sprintIDs) {
-			AllIssuesDisplay allIssuesDisplay = boardsServiceBO.getAllIssuesForSprintForListOfCustomFields(boardId,
-					sprint.getId());
+		List<SprintDetails> sprints = new CopyOnWriteArrayList<>();
 
-			if (allIssuesDisplay != null && !CollectionUtils.isEmpty(allIssuesDisplay.getIssues())) {
-				allIssues.addIssues(allIssuesDisplay.getIssues());
+		Future<SprintDetails> future = null;
+		ExecutorService executorService = Executors.newFixedThreadPool(10);
+		for (Sprint sprint : sprintIDs) {
+			Callable<SprintDetails> allIssuesDisplayCall = new Callable<SprintDetails>() {
+
+				@Override
+				public SprintDetails call() throws Exception {
+					AllIssuesDisplay allIssuesDisplay = boardsServiceBO.getAllIssuesForSprintForListOfCustomFields(boardId, sprint.getId());
+					if (allIssuesDisplay != null && !CollectionUtils.isEmpty(allIssuesDisplay.getIssues())) {
+						allIssues.addIssues(allIssuesDisplay.getIssues());
+					}
+
+					SprintDetails sprintDetails = boardsServiceBO.getSprintDetails(allIssuesDisplay);
+					// sprintDetails.setSprintName(sprint.getName());
+					LOG.info("Sprint details fetched", sprintDetails);
+
+					return sprintDetails;
+				}
+			};
+
+			future = executorService.submit(allIssuesDisplayCall);
+			try {
+				SprintDetails sprintDetails = future.get();
+				sprints.add(sprintDetails);
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
 			}
-			SprintDetails sprintDetails = boardsServiceBO.getSprintDetails(allIssuesDisplay);
-			// sprintDetails.setSprintName(sprint.getName());
-			LOG.info("Sprint details fetched", sprintDetails);
-			lst.add(sprintDetails);
 		}
 
-		return lst;
+
+		executorService.shutdown();
+		return sprints;
 	}
 
 	private String testResult() {

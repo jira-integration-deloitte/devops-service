@@ -18,6 +18,7 @@ import org.deloitte.devops.jira.model.AllIssuesDisplay.IssueDisplay;
 import org.deloitte.devops.jira.model.AllIssuesResponse;
 import org.deloitte.devops.jira.model.AllSprints;
 import org.deloitte.devops.jira.model.CustomField;
+import org.deloitte.devops.jira.model.GroomingStatus;
 import org.deloitte.devops.jira.model.Issue;
 import org.deloitte.devops.jira.model.SprintDetails;
 import org.deloitte.devops.jira.model.StoryStatus;
@@ -31,6 +32,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
 public class BoardsServiceBO {
@@ -135,7 +138,7 @@ public class BoardsServiceBO {
 		int storyPoints = 0;
 		String capability = null;
 		String tShirtSize = null;
-		String groomingStatus = null;
+		GroomingStatus groomingStatusObj = new GroomingStatus();
 
 		try {
 			ParameterizedTypeReference<LinkedHashMap<String, Object>> ptr = new ParameterizedTypeReference<LinkedHashMap<String, Object>>() {
@@ -170,10 +173,14 @@ public class BoardsServiceBO {
 				LOG.error("Unable to fetch tShirtSize - [{}]", e.getMessage());
 			}
 			try {
-				groomingStatus = new JSONObject(issueDetailsStr).getJSONObject("fields").get(customFieldList.get(3))
+				/*groomingStatus = new JSONObject(issueDetailsStr).getJSONObject("fields").get(customFieldList.get(3))
 						.toString();
 
-				LOG.info("Grooming status for the story with id [{}] is [{}]", story.getId(), groomingStatus);
+				LOG.info("Grooming status for the story with id [{}] is [{}]", story.getId(), groomingStatus);*/
+				String groomingStatus = new JSONObject(issueDetailsStr).getJSONObject("fields").get(customFieldList.get(3)).toString();
+				ObjectMapper mapper = new ObjectMapper();
+				groomingStatusObj = mapper.readValue(groomingStatus, GroomingStatus.class);
+				LOG.info("Grooming status for the story with id [{}] is [{}]", story.getId(), groomingStatusObj.getValue());
 			} catch (Exception e) {
 				LOG.error("Some exception occured while fetching Grooming status", e.getMessage());
 			}
@@ -183,7 +190,7 @@ public class BoardsServiceBO {
 
 		story.setStoryPoint(storyPoints);
 		story.setCapability(capability);
-		story.setGroomingStatus(groomingStatus);
+		story.setGroomingStatus(groomingStatusObj.getValue());
 		story.settShirtSize(tShirtSize);
 		return story;
 	}
@@ -192,9 +199,9 @@ public class BoardsServiceBO {
 		SprintDetails sprintDetails = new SprintDetails();
 		List<IssueDisplay> storyList = allIssuesDisplay.getIssues();
 		int storiesCount = storyList.size();
-		int sumOfStoryPoints = addTotalStoryPoints(storyList);
-		int numOfCapabilititesField = calculateCapabilitiesFieldPopulated(storyList);
-		int numOfTShirtSizeField = calculateTShirtSizeFieldPopulated(storyList);
+		Integer sumOfStoryPoints = addTotalStoryPoints(storyList);
+		Integer numOfCapabilititesField = calculateCapabilitiesFieldPopulated(storyList);
+		Integer numOfTShirtSizeField = calculateTShirtSizeFieldPopulated(storyList);
 
 		Map<String, Integer> statusMap = gatherTotalStatusCounts(storyList);
 

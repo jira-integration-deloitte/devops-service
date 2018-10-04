@@ -212,7 +212,8 @@ public class BoardsServiceBO {
 		sprintDetails.setTshirtSizeFieldPopulated(numOfTShirtSizeField);
 		sprintDetails.setGroomingStatusList(groomingStatusList);
 		sprintDetails.setStatuslist(statusList);
-		sprintDetails.setSprintName(storyList.get(0).getSprintName());
+		if(storyList.size()>0)
+			sprintDetails.setSprintName(storyList.get(0).getSprintName());
 		return sprintDetails;
 	}
 

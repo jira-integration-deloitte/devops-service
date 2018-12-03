@@ -20,17 +20,14 @@ public class Issue {
 	private String capability;
 	private String tShirtSize;
 	private String groomingStatus;
-	
-	
-	
-	
-	
-	
+
 	public String getCapability() {
 		return capability;
 	}
 
 	public void setCapability(String capability) {
+		System.err.println("Updating capability [" + this + "] by Thread - [" + Thread.currentThread().getId() + "-"
+				+ Thread.currentThread().getName() + "]");
 		this.capability = capability;
 	}
 
@@ -39,6 +36,8 @@ public class Issue {
 	}
 
 	public void settShirtSize(String tShirtSize) {
+		System.err.println("Updating tShirt size [" + this + "] by Thread - [" + Thread.currentThread().getId() + "-"
+				+ Thread.currentThread().getName() + "]");
 		this.tShirtSize = tShirtSize;
 	}
 
@@ -47,6 +46,8 @@ public class Issue {
 	}
 
 	public void setGroomingStatus(String groomingStatus) {
+		System.err.println("Updating grooming status [" + this + "] by Thread - [" + Thread.currentThread().getId()
+				+ "-" + Thread.currentThread().getName() + "]");
 		this.groomingStatus = groomingStatus;
 	}
 
@@ -105,6 +106,8 @@ public class Issue {
 	}
 
 	public void setStoryPoint(int storyPoint) {
+		System.err.println("Updating story point [" + this + "] by Thread - [" + Thread.currentThread().getId() + "-"
+				+ Thread.currentThread().getName() + "]");
 		this.storyPoint = storyPoint;
 	}
 
